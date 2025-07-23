@@ -97,7 +97,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             try {
                 // IMPORTANT: Replace with your actual server endpoint
-                const res = await fetch("https://sandipshub.onrender.com:10000/api/contact", {
+                const res = await fetch("https://sandipshub.onrender.com/api/contact", {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json",
