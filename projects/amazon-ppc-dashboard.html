@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Amazon PPC Performance Dashboard | Sandip Sarkar</title>
+    <link rel="stylesheet" href="../styles.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+<body class="project-detail-page">
+    <nav class="navbar">
+        <div class="logo">Sandip Sarkar | Data & Automation Hub</div>
+        <button class="menu-toggle" id="menu-toggle">☰</button>
+        <ul class="nav-links" id="nav-links">
+            <li><a href="../index.html#home">Home</a></li>
+            <li><a href="../index.html#services">Services</a></li>
+            <li><a href="../index.html#projects" class="active">Projects</a></li>
+            <li><a href="../index.html#testimonials">Testimonials</a></li>
+            <li><a href="../index.html#contact">Contact</a></li>
+            <li><button id="darkToggle">🌓</button></li>
+        </ul>
+    </nav>
+
+    <main>
+        <section class="project-detail-header animate-on-scroll">
+            <div class="container">
+                <h1>Amazon PPC Performance Dashboard</h1>
+                <p>An interactive Power BI dashboard designed to provide a comprehensive view of Amazon PPC campaign performance, enabling data-driven optimization strategies.</p>
+            </div>
+        </section>
+
+        <section class="project-detail-content animate-on-scroll">
+            <div class="container">
+                <div class="project-detail-section">
+                    <h2>Overview</h2>
+                    <p>This project involved developing a sophisticated Power BI dashboard to analyze and visualize Amazon PPC (Pay-Per-Click) advertising data. The goal was to transform raw, complex advertising metrics into clear, actionable insights, allowing stakeholders to quickly understand campaign performance, identify optimization opportunities, and ultimately improve Ad ROAS (Return on Ad Spend).</p>
+                    <p>The dashboard integrates data from Amazon Seller Central, providing real-time tracking of key performance indicators (KPIs) such as ad spend, revenue, ACOS (Advertising Cost of Sales), TACOS (Total Advertising Cost of Sales), clicks, impressions, and conversions.</p>
+                </div>
+
+                <div class="project-detail-section">
+                    <h2>Problem & Solution</h2>
+                    <p><strong>Problem:</strong> The client was struggling to efficiently monitor and optimize their Amazon PPC campaigns. Data was fragmented, requiring manual aggregation from various reports, leading to delayed insights and missed opportunities for cost reduction or performance improvement.</p>
+                    <p><strong>Solution:</strong> I designed and implemented a robust ETL (Extract, Transform, Load) process to pull daily PPC data automatically. This data was then cleaned, transformed, and loaded into Power BI. The dashboard provides a single source of truth, featuring interactive filters, drill-down capabilities, and visualizations that highlight:</p>
+                    <ul>
+                        <li>Overall campaign performance trends.</li>
+                        <li>Performance by campaign, ad group, keyword, and product.</li>
+                        <li>Spend efficiency and profitability (ROAS, ACOS).</li>
+                        <li>Keyword performance and opportunities for bid adjustments.</li>
+                        <li>Seasonal trends and campaign seasonality.</li>
+                    </ul>
+                </div>
+
+                <div class="project-detail-section">
+                    <h2>Technologies Used</h2>
+                    <ul>
+                        <li><strong>Power BI:</strong> For interactive dashboard design and data visualization.</li>
+                        <li><strong>DAX (Data Analysis Expressions):</strong> For creating custom measures and calculated columns.</li>
+                        <li><strong>Power Query:</strong> For data extraction, transformation, and loading.</li>
+                        <li><strong>SQL:</strong> (If applicable, e.g., for initial data staging or specific data pulls) Used for structuring and querying advertising data.</li>
+                        <li><strong>Excel:</strong> For initial data review and validation.</li>
+                        <li><strong>Amazon Seller Central:</strong> Source of raw PPC data.</li>
+                    </ul>
+                </div>
+
+                <div class="project-detail-section">
+                    <h2>Visualizations & Key Features</h2>
+                    <p>The dashboard includes various types of visualizations to cater to different analytical needs:</p>
+                    <div class="project-detail-images">
+                        <img src="../images/projects/amazon-ppc-dashboard-overview.jpg" alt="Dashboard Overview Screenshot">
+                        <img src="../images/projects/amazon-ppc-dashboard-keywords.jpg" alt="Keyword Performance Section">
+                        <img src="../images/projects/amazon-ppc-dashboard-trends.jpg" alt="Trend Analysis Chart">
+                    </div>
+                    <p>Key features include dynamic date slicers, performance comparisons (e.g., month-over-month), conditional formatting for alerts, and drill-through pages for deeper dives into specific campaigns or products.</p>
+                </div>
+
+                <div class="project-detail-section">
+                    <h2>Results & Impact</h2>
+                    <p>The implementation of this dashboard led to significant improvements for the client:</p>
+                    <ul>
+                        <li><strong>20% Increase in Ad ROAS:</strong> By identifying underperforming keywords and optimizing bids based on data-driven insights.</li>
+                        <li><strong>Reduced Manual Reporting Time:</strong> Automation of data aggregation saved approximately 10 hours per week of manual effort.</li>
+                        <li><strong>Improved Decision-Making:</strong> Stakeholders gained immediate access to critical performance metrics, enabling faster and more informed strategic adjustments to ad campaigns.</li>
+                        <li><strong>Enhanced Accountability:</strong> Clear visualization of performance metrics fostered better accountability among the marketing team.</li>
+                    </ul>
+                    <p>This project demonstrates my ability to translate complex business problems into robust, data-driven solutions that deliver measurable business value.</p>
+                </div>
+
+                <div class="project-detail-section">
+                    <h2>Project Walkthrough (Optional)</h2>
+                    <div class="project-detail-video-container">
+                        <iframe
+                            src="https://www.youtube.com/embed/YOUR_YOUTUBE_VIDEO_ID"
+                            title="YouTube video player"
+                            frameborder="0"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                            referrerpolicy="strict-origin-when-cross-origin"
+                            allowfullscreen>
+                        </iframe>
+                    </div>
+                    <p style="margin-top: 15px;">A brief video demonstrating the dashboard's features and functionality.</p>
+                </div>
+
+            </div>
+        </section>
+
+        <div class="back-button-container">
+            <a href="../index.html#projects" class="back-button">← Back to Projects</a>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Sandip Sarkar. All rights reserved. | Designed and Developed by Sandip Sarkar.</p>
+        </div>
+    </footer>
+
+    <script src="../script.js"></script>
+</body>
+</html>

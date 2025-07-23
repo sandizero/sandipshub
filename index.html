@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Sandip Sarkar | Data & Automation Hub</title>
+    <link rel="stylesheet" href="styles.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">Sandip Sarkar | Data & Automation Hub</div>
+        <button class="menu-toggle" id="menu-toggle">☰</button>
+        <ul class="nav-links" id="nav-links">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#services">Services</a></li>
+            <li><a href="#projects">Projects</a></li>
+            <li><a href="#testimonials">Testimonials</a></li>
+            <li><a href="#contact">Contact</a></li>
+            <li><button id="darkToggle">🌓</button></li>
+        </ul>
+    </nav>
+
+    <main>
+        <header class="home" id="home">
+            <div class="container">
+                <h1 class="home-title">Empowering Businesses with <span>Data-Driven Growth & Automation</span>.</h1>
+                <p class="home-subtitle">I'm Sandip Sarkar, a dedicated Data Analyst and Automation Specialist. I transform complex data into clear, actionable insights using **Excel, SQL, Python, Power BI, and Tableau**. My expertise also lies in streamlining operations with **n8n automation** and efficient workflow design, empowering businesses like yours to make smarter decisions and achieve more with less effort.</p>
+                <div class="home-buttons">
+                    <a href="#projects" class="btn primary-btn">Explore My Portfolio</a>
+                    <a href="#contact" class="btn btn-outline">Let's Collaborate</a>
+                </div>
+
+                <div class="tech-logos">
+                    <img src="images/logo-excel.svg" alt="Microsoft Excel logo">
+                    <img src="images/logo-sql.svg" alt="SQL logo">
+                    <img src="images/logo-machine-learning.svg" alt="Machine Learning logo">
+                    <img src="images/logo-python.svg" alt="Python logo">
+                    <img src="images/logo-powerbi.svg" alt="Power BI logo">
+                    <img src="images/logo-tableau.svg" alt="Tableau logo">
+                    <img src="images/logo-n8n.svg" alt="n8n automation platform logo">
+                </div>
+            </div>
+        </header>
+
+        <section class="services animate-on-scroll" id="services">
+            <div class="container">
+                <h2>My Services</h2>
+
+                <h3>Data Analysis Services</h3>
+                <p>
+                    Transform your data into valuable insights with comprehensive analysis and visualization services.
+                </p>
+                <div class="services-grid" id="data-analysis-services-grid">
+                    </div>
+
+                <h3 style="margin-top: 60px;">Business Process Automation</h3>
+                <p>
+                    Streamline repetitive tasks and optimize workflows through smart automation powered by n8n.
+                </p>
+                <div class="services-grid" id="automation-services-grid">
+                    </div>
+            </div>
+        </section>
+
+        <section class="projects animate-on-scroll" id="projects">
+            <div class="container">
+                <h2>My Projects</h2>
+                <div class="projects-grid">
+                    </div>
+            </div>
+        </section>
+
+        <section class="testimonials animate-on-scroll" id="testimonials">
+            <div class="container">
+                <h2>Hear What My Clients Say:</h2>
+                <div class="testimonials-grid">
+                    <div class="testimonial-card">
+                        <p>"Delivered my site ahead of schedule — just perfect!"</p>
+                        <h4>- John Doe</h4>
+                    </div>
+                    <div class="testimonial-card">
+                        <p>"Excellent work, great communication, highly recommended."</p>
+                        <h4>- Jane Smith</h4>
+                    </div>
+                    <div class="testimonial-card">
+                        <p>"Attention to detail is top-notch. Love the final result!"</p>
+                        <h4>- Alex Johnson</h4>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="contact-section animate-on-scroll" id="contact">
+            <div class="container contact-container">
+                <div class="contact-left">
+                    <h2>Ready to Collaborate?</h2>
+                    <p>Send me a message using the form below:</p>
+                    <form id="contactForm">
+                        <div class="form-group">
+                            <input id="name" type="text" name="name" placeholder="Your Name" required />
+                        </div>
+                        <div class="form-group">
+                            <input id="email" type="email" name="email" placeholder="Your Email" required />
+                        </div>
+                        <div class="form-group">
+                            <input id="company" type="text" name="company" placeholder="Your Company (Optional)" />
+                        </div>
+                        <div class="form-group">
+                            <textarea id="message" rows="5" name="message" placeholder="Your Message" required></textarea>
+                        </div>
+                        <button type="submit" class="btn primary-btn">
+                            Send Message
+                            <span id="formSpinner" class="spinner" style="display: none;"></span>
+                        </button>
+                        <div id="formResponse" class="form-response"></div>
+                    </form>
+                </div>
+
+                <div class="contact-right">
+                    <h2>My Contacts</h2>
+                    <p>You can also connect with me directly:</p>
+                    <div class="contact-info-box">
+                        <div class="info-item">
+                            <img src="https://img.icons8.com/ios-filled/24/1a73e8/user.png" alt="User Icon" />
+                            <span>Sandip Sarkar</span>
+                        </div>
+                        <div class="info-item">
+                            <img src="https://img.icons8.com/ios-filled/24/1a73e8/new-post.png" alt="Email Icon" />
+                            <span>sarkarsandip966@gmail.com</span>
+                        </div>
+                        <div class="info-item">
+                            <img src="https://img.icons8.com/ios-filled/24/1a73e8/phone.png" alt="Phone Icon" />
+                            <span>+91 7980544934</span>
+                        </div>
+                        <div class="info-item">
+                            <img src="https://img.icons8.com/ios-filled/24/1a73e8/marker.png" alt="Location Icon" />
+                            <span>Kolkata, India</span>
+                        </div>
+                        <div class="info-item social-icons-inline">
+                            <a href="https://github.com/sandizero/projects" target="_blank">
+                                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg" alt="GitHub" width="28"/>
+                            </a>
+                            <a href="https://linkedin.com/in/sandip-sarkar-a84931260" target="_blank">
+                                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linkedin/linkedin-original.svg" alt="LinkedIn" width="28"/>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Sandip Sarkar. All rights reserved. | Designed and Developed by Sandip Sarkar.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

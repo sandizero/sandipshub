@@ -1,0 +1,1080 @@
+/* Variables */
+html {
+    scroll-behavior: smooth;
+    /* This padding ensures content doesn't hide behind the fixed navbar when jumping to anchor links */
+    /* Updated to use CSS variable which JS will set, providing a fallback */
+    scroll-padding-top: var(--scroll-padding-top, 70px);
+}
+:root {
+    --primary-color: #007bff; /* Vibrant Blue */
+    --secondary-color: #28a745; /* Green Accent */
+    --background-color-light: #f8f9fa; /* Soft off-white */
+    --background-color-medium: #eceff1; /* Light gray for sections */
+    --text-color-light: #343a40; /* Darker text for contrast */
+    --text-color-muted-light: #6c757d; /* Muted text for subtle elements */
+
+    --dark-bg: #1a1a1a; /* Darker background */
+    --dark-section-bg: #222222; /* Slightly lighter dark section background */
+    --dark-text: #e9ecef; /* Lighter text for dark mode */
+    --dark-text-muted: #adb5bd; /* Muted text for dark mode */
+
+    --card-shadow-light: 0 2px 8px rgba(0, 0, 0, 0.08);
+    --card-hover-shadow-light: 0 8px 20px rgba(0, 0, 0, 0.15), 0 0 25px var(--primary-color);
+    --card-shadow-dark: 0 4px 12px rgba(0, 0, 0, 0.4);
+    --card-hover-shadow-dark: 0 10px 25px rgba(0, 0, 0, 0.6), 0 0 25px var(--secondary-color);
+
+    /* Added for spinner border color fallback/consistency */
+    --spinner-border-light: rgba(0, 0, 0, 0.1);
+    --spinner-border-dark: rgba(255, 255, 255, 0.2);
+}
+
+/* Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', sans-serif;
+    line-height: 1.6;
+    background: var(--background-color-light);
+    color: var(--text-color-light);
+    transition: background 0.3s, color 0.3s;
+
+    /* Sticky Footer Logic: Flexbox */
+    display: flex;
+    flex-direction: column; /* Arrange content and footer vertically */
+    min-height: 100vh; /* Ensure body takes at least full viewport height */
+}
+
+/* Main content area that will grow */
+main {
+    flex-grow: 1; /* This pushes the footer down */
+}
+
+body.dark {
+    background: var(--dark-bg);
+    color: var(--dark-text);
+}
+
+.container {
+    width: 90%;
+    max-width: 1100px;
+    margin: auto;
+}
+
+/* Navbar */
+.navbar {
+    background: var(--primary-color);
+    padding: 0.7rem 1.5rem; /* Increased padding */
+    color: #fff;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: sticky; /* Sticky position for fixed-on-scroll */
+    top: 0;
+    z-index: 999;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1); /* Subtle shadow */
+}
+
+.navbar .logo {
+    font-family: 'Poppins', sans-serif; /* Use Poppins for logo */
+    font-weight: 700; /* Bolder */
+    font-size: 1.2rem; /* Slightly larger */
+    white-space: nowrap;
+    color: #fff;
+}
+
+.nav-links {
+    list-style: none;
+    display: flex;
+    gap: 1.5rem; /* Increased gap */
+    margin: 0;
+    padding: 0;
+}
+
+.nav-links li a {
+    color: #fff;
+    text-decoration: none;
+    font-weight: 500;
+    padding: 0.6rem 1rem; /* Slightly more padding */
+    border-radius: 4px; /* Slightly sharper border-radius */
+    transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.nav-links li a:hover {
+    background: rgba(255,255,255,0.25); /* More pronounced hover */
+    transform: translateY(-2px); /* Subtle lift on hover */
+}
+
+.menu-toggle {
+    display: none; /* Hidden by default for desktop */
+    background: none;
+    border: none;
+    font-size: 1.8rem; /* Larger toggle icon */
+    color: white;
+    cursor: pointer;
+}
+
+/* Sections */
+section,
+header {
+    padding: 80px 20px;
+    text-align: center;
+}
+
+/* Home Section Background Image */
+#home::before {
+    content: ''; /* Essential for pseudo-elements to render */
+    position: absolute; /* Position relative to #home (which is position: relative) */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+
+    background-image: url('images/abstract-home-bg.jpg');
+
+    background-repeat: no-repeat;
+    background-size: cover; /* Ensures the image covers the entire #home section */
+    background-position: center center; /* Centers the image */
+    opacity: 0.15; /* Adjust this value for subtlety */
+    z-index: -1; /* Places it behind the content of #home */
+}
+/* Ensure #home is positioned for the ::before pseudo-element */
+#home {
+    position: relative;
+    overflow: hidden; /* Important to contain pseudo-element if it overfills */
+}
+
+
+.home-title {
+    font-family: 'Poppins', sans-serif; /* Use Poppins for headings */
+    font-size: 3.2rem; /* Larger title */
+    margin-bottom: 1.5rem; /* More space */
+    line-height: 1.2;
+}
+
+.home-title span {
+    color: var(--primary-color);
+}
+
+.home-subtitle {
+    font-size: 1.15rem; /* Slightly larger text */
+    max-width: 850px; /* Wider text block */
+    margin: 0 auto 2.5rem; /* More space */
+    color: var(--text-color-muted-light);
+}
+
+.home-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 1.2rem;
+}
+
+h2 {
+    font-family: 'Poppins', sans-serif; /* Use Poppins for headings */
+    font-size: 2.5rem; /* Larger section titles */
+    margin-bottom: 2rem; /* More space */
+    color: var(--primary-color);
+}
+
+h3 {
+    font-family: 'Poppins', sans-serif; /* Use Poppins for headings */
+    font-size: 1.8rem; /* Larger sub-headings */
+    margin-bottom: 1rem;
+    color: var(--text-color-light);
+}
+
+/* Buttons */
+.btn {
+    background: var(--primary-color);
+    color: #fff;
+    border: none;
+    padding: 0.85rem 1.8rem; /* Increased padding */
+    border-radius: 25px; /* Sharper edges */
+    cursor: pointer;
+    transition: background 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+    text-decoration: none;
+    display: inline-block;
+    font-weight: 600;
+    letter-spacing: 0.03em; /* Subtle letter spacing */
+    text-transform: uppercase; /* Uppercase text */
+    box-shadow: 0 4px 10px rgba(0, 123, 255, 0.2);
+}
+
+.btn:hover {
+    background: #0056b3; /* Darker blue on hover */
+    transform: translateY(-2px); /* Lift effect */
+    box-shadow: 0 6px 15px rgba(0, 123, 255, 0.3);
+}
+
+/* Grids for Services, Projects, Testimonials */
+.services-grid,
+.projects-grid,
+.testimonials-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.8rem; /* Increased gap */
+    margin-top: 2.5rem; /* More space */
+}
+
+.service-card,
+.project-card,
+.testimonial-card {
+    background: #fff;
+    padding: 2.5rem; /* Increased padding */
+    border-radius: 10px;
+    box-shadow: var(--card-shadow-light);
+    text-align: left;
+    border: 1px solid #f0f0f0; /* Subtle border for definition */
+    transition: all 0.3s ease-in-out;
+}
+
+/* Hover Glowing Effect for Cards */
+.service-card:hover,
+.project-card:hover,
+.testimonial-card:hover {
+    transform: translateY(-8px); /* More pronounced lift */
+    box-shadow: var(--card-hover-shadow-light);
+}
+
+
+.service-card h4 {
+    font-family: 'Poppins', sans-serif;
+    margin-bottom: 0.8rem;
+    color: var(--primary-color);
+    font-size: 1.3rem;
+}
+
+.service-card p {
+    color: var(--text-color-muted-light);
+}
+
+.project-card h3 {
+    font-family: 'Poppins', sans-serif;
+    color: var(--primary-color);
+    margin-bottom: 0.5rem;
+}
+
+.project-card p {
+    color: var(--text-color-muted-light);
+}
+
+
+.testimonial-card h4 {
+    margin-top: 1.2rem;
+    color: var(--text-color-muted-light);
+    font-size: 1.0rem; /* Corrected typo: Changed 1rem to 1.0rem for consistency */
+}
+
+.testimonial-card p {
+    font-style: italic;
+    color: var(--text-color-light);
+    line-height: 1.8;
+}
+
+/* Contact Section */
+.contact-section {
+    padding: 80px 20px;
+    background: var(--background-color-medium); /* Slightly darker background for distinction */
+}
+
+.contact-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 3rem; /* Increased gap */
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+.contact-left,
+.contact-right {
+    flex: 1 1 45%;
+    min-width: 300px;
+}
+
+.contact-left h2,
+.contact-right h2 {
+    margin-bottom: 1rem;
+    color: var(--primary-color);
+}
+
+.contact-left p, .contact-right p {
+    color: var(--text-color-muted-light);
+    margin-bottom: 1.5rem;
+}
+
+.contact-info-box {
+    margin-top: 1.5rem;
+}
+
+.info-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem; /* Increased gap */
+    margin-bottom: 1.2rem; /* More space */
+    font-size: 1.05rem; /* Slightly larger font */
+    color: var(--text-color-light);
+}
+
+.info-item img {
+    width: 26px; /* Slightly larger icons */
+    height: 26px;
+    filter: invert(15%) sepia(90%) saturate(600%) hue-rotate(190deg) brightness(95%); /* Adjust for primary color */
+}
+
+.social-icons-inline {
+    margin-top: 2rem; /* More space */
+    display: flex;
+    gap: 1.5rem; /* Increased gap */
+}
+
+.social-icons-inline a img {
+    width: 30px; /* Consistent with HTML */
+    height: 30px;
+    transition: transform 0.3s ease, filter 0.3s ease;
+    filter: brightness(0.9); /* Slightly desaturated default */
+}
+
+.social-icons-inline a:hover img {
+    transform: scale(1.15); /* More pronounced scale */
+    filter: brightness(1.2); /* Brighter on hover */
+}
+
+form .form-group {
+    margin-bottom: 1.2rem; /* More space */
+}
+
+form input,
+form textarea {
+    width: 100%;
+    padding: 0.9rem; /* Increased padding */
+    border-radius: 8px; /* Softer border-radius */
+    border: 1px solid #ced4da; /* Subtle border */
+    font-family: inherit;
+    background: #fff;
+    color: #333;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+form input:focus,
+form textarea:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25); /* Focus glow */
+}
+
+form button {
+    padding: 0.75rem 1.5rem;
+    background: var(--primary-color);
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+    font-weight: 600;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+    box-shadow: 0 4px 10px rgba(0, 123, 255, 0.2);
+}
+
+form button:hover {
+    background: #0056b3;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(0, 123, 255, 0.3);
+}
+
+.form-response {
+    margin-top: 1.5rem; /* More space */
+    text-align: center;
+    font-weight: bold;
+    font-size: 1.1rem;
+    min-height: 20px; /* Added for consistency to prevent layout shift */
+}
+.form-response[style*="color: green"] {
+    color: var(--secondary-color) !important; /* Use variable for success */
+}
+.form-response[style*="color: red"] {
+    color: #dc3545 !important; /* Standard red for error */
+}
+
+
+/* Footer */
+footer {
+    background: var(--primary-color);
+    color: #fff;
+    text-align: center;
+    padding: 1.5rem 0; /* More padding */
+    font-size: 0.95rem;
+    margin-top: auto; /* Essential for sticky footer */
+}
+
+/* Dark Mode Overrides */
+body.dark {
+    background: var(--dark-bg);
+    color: var(--dark-text);
+}
+
+body.dark .navbar {
+    background: #111111; /* Even darker navbar for dark mode */
+    box-shadow: 0 2px 5px rgba(0,0,0,0.4);
+}
+
+body.dark .logo {
+    color: var(--dark-text);
+}
+
+body.dark .nav-links li a {
+    color: var(--dark-text);
+}
+
+body.dark .nav-links li a:hover {
+    background: rgba(255,255,255,0.1);
+}
+
+body.dark #home::before {
+    /* Adjust for dark mode if you want a different overlay effect for the background image */
+    opacity: 0.08; /* Make it even more subtle in dark mode */
+}
+
+body.dark .home-title span {
+    color: var(--secondary-color);
+}
+
+body.dark .home-subtitle {
+    color: var(--dark-text-muted);
+}
+
+body.dark h2, body.dark h3 {
+    color: var(--secondary-color); /* Headings use secondary in dark mode */
+}
+
+body.dark .btn {
+    background: var(--secondary-color);
+    box-shadow: 0 4px 10px rgba(40, 167, 69, 0.2);
+}
+
+body.dark .btn:hover {
+    background: #218838; /* Darker secondary on hover */
+    box-shadow: 0 6px 15px rgba(40, 167, 69, 0.3);
+}
+
+body.dark .service-card,
+body.dark .project-card,
+body.dark .testimonial-card {
+    background: var(--dark-section-bg);
+    color: var(--dark-text);
+    box-shadow: var(--card-shadow-dark);
+    border: 1px solid #333; /* Darker border for definition */
+}
+
+body.dark .service-card:hover,
+body.dark .project-card:hover,
+body.dark .testimonial-card:hover {
+    box-shadow: var(--card-hover-shadow-dark);
+}
+
+body.dark .service-card h4 {
+    color: var(--secondary-color);
+}
+
+body.dark .service-card p,
+body.dark .project-card p,
+body.dark .testimonial-card h4 {
+    color: var(--dark-text-muted);
+}
+
+body.dark .testimonial-card p {
+    color: var(--dark-text);
+}
+
+body.dark .contact-section {
+    background: var(--dark-bg);
+}
+
+body.dark .contact-left h2,
+body.dark .contact-right h2 {
+    color: var(--secondary-color);
+}
+
+body.dark .contact-left p, body.dark .contact-right p {
+    color: var(--dark-text-muted);
+}
+
+body.dark input,
+body.dark textarea {
+    background: #333;
+    border: 1px solid #555;
+    color: var(--dark-text);
+}
+
+body.dark input:focus,
+body.dark textarea:focus {
+    border-color: var(--secondary-color);
+    box-shadow: 0 0 0 0.2rem rgba(40, 167, 69, 0.25);
+}
+
+body.dark .info-item {
+    color: var(--dark-text);
+}
+
+body.dark .info-item img {
+    filter: invert(50%) sepia(60%) saturate(1500%) hue-rotate(80deg) brightness(90%); /* Adjust for secondary color in dark mode */
+}
+
+body.dark .social-icons-inline a img {
+    filter: brightness(0.7); /* Slightly darker in dark mode */
+}
+body.dark .social-icons-inline a:hover img {
+    filter: brightness(1.1); /* Brighter on hover in dark mode */
+}
+
+body.dark footer {
+    background: #111111;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .navbar {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 0.7rem 1rem;
+        position: relative; /* Change to relative for mobile menu to expand naturally */
+        height: auto; /* Allow height to adjust */
+    }
+
+    .navbar .logo {
+        margin-bottom: 0; /* Reset margin */
+        font-size: 1.1rem;
+        width: 100%; /* Take full width */
+        text-align: center; /* Center logo */
+    }
+
+    .menu-toggle {
+        display: block; /* Show on small screens */
+        position: absolute;
+        right: 1rem;
+        top: 0.8rem; /* Adjust positioning */
+    }
+
+    .nav-links {
+        display: none; /* Hidden by default */
+        flex-direction: column;
+        background: var(--primary-color);
+        width: 100%;
+        text-align: center;
+        padding: 0.5rem 0; /* Reduced padding */
+        margin-top: 0.5rem; /* Space below logo */
+    }
+
+    body.dark .nav-links {
+        background: #111111;
+    }
+
+
+    .nav-links.active {
+        display: flex; /* Show when active */
+    }
+
+    .nav-links li {
+        margin: 0.5rem 0;
+    }
+
+    .nav-links li a {
+        padding: 0.8rem 1rem;
+        display: block;
+    }
+
+    .home-title {
+        font-size: 2.5rem;
+    }
+
+    .home-subtitle {
+        font-size: 1rem;
+    }
+
+    .home-buttons {
+        flex-direction: column;
+        gap: 0.8rem;
+    }
+
+    .contact-container {
+        flex-direction: column;
+    }
+
+    .contact-left,
+    .contact-right {
+        width: 100%;
+        min-width: unset;
+    }
+    h2 {
+        font-size: 2rem;
+    }
+    h3 {
+        font-size: 1.5rem;
+    }
+
+    /* Adjust for mobile view of logos */
+    .tech-logos {
+        flex-wrap: wrap; /* Allow logos to wrap to next line on small screens */
+        justify-content: center;
+        gap: 1.5rem; /* Increase gap slightly */
+    }
+
+    .tech-logos img {
+        width: 45px; /* Slightly smaller logos on mobile */
+        height: 45px;
+        /* Ensure filter is applied correctly on mobile too */
+        filter: invert(30%) sepia(80%) saturate(2000%) hue-rotate(200deg) brightness(80%);
+    }
+
+    body.dark .tech-logos img {
+        filter: invert(50%) sepia(80%) saturate(2000%) hue-rotate(180deg) brightness(120%);
+    }
+}
+
+.nav-links li a.active {
+    background: rgba(255,255,255,0.35); /* Slightly more prominent for active state */
+    color: #fff; /* Ensure text color remains readable */
+    font-weight: 700; /* Make it bolder */
+}
+
+/* Dark mode specific active state (add inside your body.dark section) */
+body.dark .nav-links li a.active {
+    background: rgba(255,255,255,0.15); /* Adjust for dark mode */
+    color: var(--dark-text);
+}
+
+/* --- TECH LOGOS STYLES (for home section) --- */
+.tech-logos {
+    display: flex;
+    justify-content: center; /* Center the logos */
+    align-items: center;
+    gap: 2.5rem; /* Space between logos */
+    margin-top: 3.5rem; /* Space below the buttons */
+    margin-bottom: 0; /* No bottom margin, as it's at the end of the home header */
+    padding: 1rem; /* Add some padding around them */
+    flex-wrap: wrap; /* Allow wrapping on smaller screens */
+}
+
+.tech-logos img {
+    width: 60px; /* Size of the logos */
+    height: 60px;
+    opacity: 0.8; /* Make them slightly muted initially */
+    transition: all 0.3s ease; /* Smooth transition for all properties */
+
+    /* Blue Tint Filter (Light Mode) */
+    filter: invert(30%) sepia(80%) saturate(2000%) hue-rotate(200deg) brightness(80%);
+}
+
+.tech-logos img:hover {
+    opacity: 1; /* Full opacity on hover */
+    transform: translateY(-5px) scale(1.1); /* Subtle lift and scale on hover */
+    /* Slight adjustment for hover in light mode to make them pop */
+    filter: invert(15%) sepia(90%) saturate(3000%) hue-rotate(200deg) brightness(90%);
+}
+
+/* Dark Mode specific styles for Tech Logos */
+body.dark .tech-logos img {
+    /* For dark mode, you might want them to be a brighter blue or white, depending on contrast */
+    filter: invert(50%) sepia(80%) saturate(2000%) hue-rotate(180deg) brightness(120%); /* Brighter blue for dark mode */
+}
+
+body.dark .tech-logos img:hover {
+    filter: invert(100%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(200%); /* White/bright on hover in dark mode */
+}
+
+/* --- STYLES FOR PROJECT DETAIL PAGES --- */
+
+.project-detail-page {
+    /* No padding-top here; `scroll-padding-top` on html handles it */
+    padding-bottom: 50px;
+    text-align: left; /* Align text left for detailed content */
+    background: var(--background-color-light);
+    color: var(--text-color-light);
+    transition: background 0.3s, color 0.3s;
+}
+
+body.dark .project-detail-page {
+    background: var(--dark-bg);
+    color: var(--dark-text);
+}
+
+.project-detail-page .container {
+    max-width: 900px; /* Slightly narrower for readability of long content */
+}
+
+.project-detail-header {
+    text-align: center;
+    margin-bottom: 40px;
+    padding-top: 50px; /* Add padding to the top of the header for content below navbar */
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--background-color-medium);
+}
+
+body.dark .project-detail-header {
+    border-bottom: 1px solid #333;
+}
+
+.project-detail-header h1 {
+    font-family: 'Poppins', sans-serif;
+    font-size: 3rem;
+    color: var(--primary-color);
+    margin-bottom: 15px;
+}
+
+body.dark .project-detail-header h1 {
+    color: var(--secondary-color);
+}
+
+.project-detail-header p {
+    font-size: 1.2rem;
+    color: var(--text-color-muted-light);
+    max-width: 700px;
+    margin: 0 auto;
+}
+
+body.dark .project-detail-header p {
+    color: var(--dark-text-muted);
+}
+
+.project-detail-content {
+    margin-top: 30px;
+}
+
+.project-detail-section {
+    margin-bottom: 40px;
+    background: #fff;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: var(--card-shadow-light);
+    border: 1px solid #f0f0f0;
+}
+
+body.dark .project-detail-section {
+    background: var(--dark-section-bg);
+    color: var(--dark-text);
+    box-shadow: var(--card-shadow-dark);
+    border: 1px solid #333;
+}
+
+.project-detail-section h2 {
+    font-family: 'Poppins', sans-serif;
+    font-size: 2rem;
+    color: var(--primary-color);
+    margin-bottom: 15px;
+    text-align: left; /* Align section titles left */
+}
+
+body.dark .project-detail-section h2 {
+    color: var(--secondary-color);
+}
+
+.project-detail-section p {
+    margin-bottom: 15px;
+    line-height: 1.7;
+    color: var(--text-color-light);
+}
+
+body.dark .project-detail-section p {
+    color: var(--dark-text);
+}
+
+.project-detail-section ul {
+    list-style: disc;
+    margin-left: 20px;
+    margin-bottom: 15px;
+    color: var(--text-color-light);
+}
+
+body.dark .project-detail-section ul {
+    color: var(--dark-text);
+}
+
+.project-detail-section ul li {
+    margin-bottom: 8px;
+}
+
+.project-detail-images {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.project-detail-images img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    object-fit: cover;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: zoom-in; /* Indicate that images are clickable for enlargement */
+}
+
+body.dark .project-detail-images img {
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+}
+
+.project-detail-images img:hover {
+    transform: translateY(-5px) scale(1.02);
+    box-shadow: 0 8px 15px rgba(0,0,0,0.2);
+}
+
+body.dark .project-detail-images img:hover {
+    box-shadow: 0 8px 15px rgba(0,0,0,0.5);
+}
+
+.project-detail-video-container {
+    position: relative;
+    padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
+    height: 0;
+    overflow: hidden;
+    margin-top: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+body.dark .project-detail-video-container {
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+}
+
+.project-detail-video-container iframe,
+.project-detail-video-container video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
+    border-radius: 8px; /* Match container border-radius */
+}
+
+.back-button-container {
+    text-align: center;
+    margin-top: 50px;
+    margin-bottom: 30px;
+}
+
+.back-button {
+    background: var(--primary-color);
+    color: #fff;
+    border: none;
+    padding: 0.8rem 2rem;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: background 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+    text-decoration: none;
+    display: inline-block;
+    font-weight: 600;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+    box-shadow: 0 4px 10px rgba(0, 123, 255, 0.2);
+}
+
+.back-button:hover {
+    background: #0056b3;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(0, 123, 255, 0.3);
+}
+
+body.dark .back-button {
+    background: var(--secondary-color);
+    box-shadow: 0 4px 10px rgba(40, 167, 69, 0.2);
+}
+
+body.dark .back-button:hover {
+    background: #218838;
+    box-shadow: 0 6px 15px rgba(40, 167, 69, 0.3);
+}
+
+/* Responsive styles for project detail page */
+@media (max-width: 768px) {
+    .project-detail-header h1 {
+        font-size: 2.2rem;
+    }
+    .project-detail-header p {
+        font-size: 1rem;
+    }
+    .project-detail-section h2 {
+        font-size: 1.8rem;
+    }
+    .project-detail-section {
+        padding: 20px;
+    }
+    .project-detail-images {
+        grid-template-columns: 1fr; /* Stack images on small screens */
+    }
+}
+
+/* --- PROJECT CARD BUTTON --- */
+.project-card {
+    display: flex; /* Make it a flex container */
+    flex-direction: column; /* Stack children vertically */
+    justify-content: space-between; /* Push button to the bottom */
+    align-items: flex-start; /* Align text and button to the left */
+    padding-bottom: 2rem; /* Give space for the button at the bottom */
+    position: relative; /* For potential absolute positioning of elements inside later if needed */
+}
+
+.project-card h3,
+.project-card p {
+    margin-bottom: 1rem; /* Adjust spacing between text and button */
+}
+
+.project-card p {
+    flex-grow: 1; /* Allow description to take up available space, pushing button down */
+}
+
+.project-card-button {
+    margin-top: 1rem; /* Space between the description and the button */
+    align-self: flex-end; /* Align the button to the right within the card */
+    font-size: 0.9rem; /* Slightly smaller text for card button */
+    padding: 0.7rem 1.4rem; /* Adjusted padding */
+    border-radius: 20px; /* Slightly more rounded than primary btn */
+}
+
+/* Dark Mode for Project Card Button */
+body.dark .project-card-button {
+    background: var(--secondary-color); /* Matches dark mode btn styles */
+    box-shadow: 0 4px 10px rgba(40, 167, 69, 0.2);
+}
+
+body.dark .project-card-button:hover {
+    background: #218838; /* Darker secondary on hover */
+    box-shadow: 0 6px 15px rgba(40, 167, 69, 0.3);
+}
+
+/* --- IMAGE ENLARGEMENT STYLES --- */
+.image-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8); /* Dark semi-transparent background */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000; /* Above everything else */
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.image-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.enlarged-image {
+    max-width: 90%; /* Max width relative to viewport */
+    max-height: 90vh; /* Max height relative to viewport height */
+    object-fit: contain; /* Ensure the entire image is visible */
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+    transform: scale(0.8); /* Start slightly smaller for transition effect */
+    opacity: 0;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+    cursor: zoom-out; /* Indicate that clicking shrinks it */
+}
+
+.image-overlay.active .enlarged-image {
+    transform: scale(1); /* Scale to actual size when active */
+    opacity: 1;
+}
+
+/* Dark mode adjustments for enlarged image (optional, but good for consistency) */
+body.dark .enlarged-image {
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.2); /* Lighter shadow in dark mode */
+}
+
+/* --- Scroll-Triggered Animations --- */
+/* Initial state for elements that will fade in and slide up on scroll */
+.animate-on-scroll {
+    opacity: 0;
+    transform: translateY(30px); /* Changed from 50px to 30px for a slightly less dramatic initial offset */
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out; /* Adjusted timing for smoother feel */
+    /* Add a default transition-delay, though JS will set a more specific one on children */
+    transition-delay: 0s;
+}
+
+/* Final state when 'fade-in-up' class is added by IntersectionObserver */
+.animate-on-scroll.fade-in-up {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* This rule applies to direct children of an animated-on-scroll element
+   It picks up the --animation-delay custom property set by JavaScript
+   to create a staggered effect. */
+.animate-on-scroll.fade-in-up > * {
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out; /* Match parent's transition */
+    transition-delay: var(--animation-delay, 0s); /* Use CSS custom property for delay */
+}
+
+
+/* --- Hero Section Entrance Animations --- */
+
+/* Initial state (hidden, slightly below position) */
+.home-title,
+.home-subtitle,
+.home-buttons,
+.tech-logos {
+    opacity: 0;
+    transform: translateY(20px);
+    /* Set base transition here; specific delays are handled by the .animate-in rules */
+    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+}
+
+/* State when animation is active - specific delays for stagger */
+.home-title.animate-in {
+    opacity: 1;
+    transform: translateY(0);
+    transition-delay: 0.1s; /* Stagger effect */
+}
+
+.home-subtitle.animate-in {
+    opacity: 1;
+    transform: translateY(0);
+    transition-delay: 0.3s; /* Stagger effect */
+}
+
+.home-buttons.animate-in {
+    opacity: 1;
+    transform: translateY(0);
+    transition-delay: 0.5s; /* Stagger effect */
+}
+
+.tech-logos.animate-in {
+    opacity: 1;
+    transform: translateY(0);
+    transition-delay: 0.7s; /* Stagger effect */
+}
+
+/* --- Spinner for Contact Form --- */
+.spinner {
+    /* Initially hidden. JS will set display: inline-block when needed. */
+    display: none;
+    border: 4px solid var(--spinner-border-light); /* Using new variable */
+    border-top: 4px solid var(--primary-color); /* Primary color for the moving part in light mode */
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    animation: spin 1s linear infinite;
+    vertical-align: middle; /* Align with text */
+    margin-left: 8px; /* Space between text and spinner */
+}
+
+/* Dark mode specific spinner styles */
+body.dark .spinner {
+    border: 4px solid var(--spinner-border-dark); /* Using new variable */
+    border-top: 4px solid var(--secondary-color); /* Secondary color for dark mode spinner */
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
