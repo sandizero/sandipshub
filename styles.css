@@ -51,6 +51,7 @@ body {
 /* Main content area that will grow */
 main {
     flex-grow: 1; /* This pushes the footer down */
+    position: relative; /* Crucial for sticky context if we use absolute positioning within */
 }
 
 body.dark {
@@ -278,6 +279,8 @@ h3 {
 .contact-section {
     padding: 80px 20px;
     background: var(--background-color-medium); /* Slightly darker background for distinction */
+    position: relative; /* VERY IMPORTANT: This makes the logo position relative to this section */
+    overflow: hidden; /* Ensures the logo stays within the bounds if positioned negatively */
 }
 
 .contact-container {
@@ -321,6 +324,7 @@ h3 {
 .info-item img {
     width: 26px; /* Slightly larger icons */
     height: 26px;
+    /* This filter is causing the issue for naturally colored logos like LinkedIn */
     filter: invert(15%) sepia(90%) saturate(600%) hue-rotate(190deg) brightness(95%); /* Adjust for primary color */
 }
 
@@ -330,17 +334,23 @@ h3 {
     gap: 1.5rem; /* Increased gap */
 }
 
-.social-icons-inline a img {
+/* NEW/MODIFIED RULES FOR SOCIAL ICONS */
+/* Target the social icons more specifically to override the general .info-item img filter */
+.contact-info-box .info-item.social-icons-inline a img {
     width: 30px; /* Consistent with HTML */
     height: 30px;
-    transition: transform 0.3s ease, filter 0.3s ease;
-    filter: brightness(0.9); /* Slightly desaturated default */
+    /* Set filter to none to remove any color transformations */
+    filter: none !important; /* Use !important to forcefully override */
+    transition: transform 0.3s ease; /* Keep transition for hover */
 }
 
-.social-icons-inline a:hover img {
-    transform: scale(1.15); /* More pronounced scale */
-    filter: brightness(1.2); /* Brighter on hover */
+/* Ensure hover effect is applied without color distortion */
+.contact-info-box .info-item.social-icons-inline a:hover img {
+    transform: scale(1.15); /* Keep scale on hover */
+    /* If filter: none is set above, this will simply brighten it, not recolor */
+    filter: brightness(1.2) !important; /* Apply brightness without recoloring */
 }
+
 
 form .form-group {
     margin-bottom: 1.2rem; /* More space */
@@ -523,11 +533,13 @@ body.dark .info-item img {
     filter: invert(50%) sepia(60%) saturate(1500%) hue-rotate(80deg) brightness(90%); /* Adjust for secondary color in dark mode */
 }
 
-body.dark .social-icons-inline a img {
-    filter: brightness(0.7); /* Slightly darker in dark mode */
+/* Dark mode specific social icon adjustments */
+body.dark .contact-info-box .info-item.social-icons-inline a img {
+    filter: none !important; /* Force no filter in dark mode */
 }
-body.dark .social-icons-inline a:hover img {
-    filter: brightness(1.1); /* Brighter on hover in dark mode */
+
+body.dark .contact-info-box .info-item.social-icons-inline a:hover img {
+    filter: brightness(1.3) !important; /* Slightly brighter on hover in dark mode */
 }
 
 body.dark footer {
@@ -889,25 +901,6 @@ body.dark .back-button:hover {
     box-shadow: 0 6px 15px rgba(40, 167, 69, 0.3);
 }
 
-/* Responsive styles for project detail page */
-@media (max-width: 768px) {
-    .project-detail-header h1 {
-        font-size: 2.2rem;
-    }
-    .project-detail-header p {
-        font-size: 1rem;
-    }
-    .project-detail-section h2 {
-        font-size: 1.8rem;
-    }
-    .project-detail-section {
-        padding: 20px;
-    }
-    .project-detail-images {
-        grid-template-columns: 1fr; /* Stack images on small screens */
-    }
-}
-
 /* --- PROJECT CARD BUTTON --- */
 .project-card {
     display: flex; /* Make it a flex container */
@@ -1007,8 +1000,8 @@ body.dark .enlarged-image {
 }
 
 /* This rule applies to direct children of an animated-on-scroll element
-   It picks up the --animation-delay custom property set by JavaScript
-   to create a staggered effect. */
+    It picks up the --animation-delay custom property set by JavaScript
+    to create a staggered effect. */
 .animate-on-scroll.fade-in-up > * {
     transition: opacity 0.6s ease-out, transform 0.6s ease-out; /* Match parent's transition */
     transition-delay: var(--animation-delay, 0s); /* Use CSS custom property for delay */
@@ -1078,3 +1071,29 @@ body.dark .spinner {
     100% { transform: rotate(360deg); }
 }
 
+/* --- NEW LOGO STYLES (Positioned within Contact Section) --- */
+.contact-section-logo-container {
+    position: absolute; /* Position relative to .contact-section */
+    bottom: 20px;       /* Distance from the bottom of the contact section */
+    right: 20px;        /* Distance from the right of the contact section */
+    z-index: 10;        /* Ensure it's above other content in the section but not too high */
+    pointer-events: none; /* Make it unclickable and prevent any default behaviors */
+}
+
+.contact-section-logo {
+    width: 100px;   /* Larger size, adjust as needed. Increased from 90px to 100px */
+    height: auto;  /* Maintain aspect ratio */
+    display: block;
+    /* Removed hover transition and transform */
+}
+
+/* Media query for smaller screens: Make the logo smaller on mobile */
+@media (max-width: 768px) {
+    .contact-section-logo-container {
+        bottom: 10px; /* Adjust distance from bottom on mobile */
+        right: 10px;  /* Adjust distance from right on mobile */
+    }
+    .contact-section-logo {
+        width: 70px; /* Smaller size for mobile */
+    }
+}
