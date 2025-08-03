@@ -1220,3 +1220,56 @@ body.dark .project-card.clicked {
     transform: translateY(-2px);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
+@media (max-width: 768px) {
+    /* ... (rest of your existing mobile rules) ... */
+
+    .navbar {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 0.7rem 1rem;
+        position: relative;
+        height: auto;
+    }
+
+    .menu-toggle {
+        display: block;
+        position: absolute;
+        right: 1rem;
+        top: 0.8rem;
+    }
+
+    .nav-links {
+        list-style: none;
+        display: flex;
+        flex-direction: column;
+        background: var(--primary-color);
+        width: 100%;
+        text-align: center;
+        padding: 0;
+        margin-top: 0.5rem;
+        
+        /* New Animation Properties */
+        max-height: 0; /* Starts at 0 height to be hidden */
+        overflow: hidden; /* Hides content that overflows the 0 height */
+        transition: max-height 0.4s ease-in-out; /* Animates the max-height over 0.4s */
+    }
+
+    body.dark .nav-links {
+        background: #111111;
+    }
+
+    .nav-links.active {
+        /* When the 'active' class is added, set a max-height large enough to show all content */
+        max-height: 500px; 
+        padding: 0.5rem 0; /* Add back padding when active */
+    }
+
+    .nav-links li {
+        margin: 0.5rem 0;
+    }
+
+    .nav-links li a {
+        padding: 0.8rem 1rem;
+        display: block;
+    }
+}
