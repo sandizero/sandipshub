@@ -133,9 +133,7 @@ header {
     left: 0;
     width: 100%;
     height: 100%;
-
     background-image: url('images/abstract-home-bg.jpg');
-
     background-repeat: no-repeat;
     background-size: cover; /* Ensures the image covers the entire #home section */
     background-position: center center; /* Centers the image */
@@ -147,7 +145,6 @@ header {
     position: relative;
     overflow: hidden; /* Important to contain pseudo-element if it overfills */
 }
-
 
 .home-title {
     font-family: 'Poppins', sans-serif; /* Use Poppins for headings */
@@ -173,38 +170,43 @@ header {
     gap: 1.2rem;
 }
 
+h2, h3 {
+    font-family: 'Poppins', sans-serif;
+    margin-bottom: 2rem;
+}
+
 h2 {
-    font-family: 'Poppins', sans-serif; /* Use Poppins for headings */
     font-size: 2.5rem; /* Larger section titles */
-    margin-bottom: 2rem; /* More space */
     color: var(--primary-color);
 }
 
 h3 {
-    font-family: 'Poppins', sans-serif; /* Use Poppins for headings */
     font-size: 1.8rem; /* Larger sub-headings */
     margin-bottom: 1rem;
     color: var(--text-color-light);
 }
 
 /* Buttons */
-.btn {
+.btn, form button, .back-button {
     background: var(--primary-color);
     color: #fff;
     border: none;
-    padding: 0.85rem 1.8rem; /* Increased padding */
-    border-radius: 25px; /* Sharper edges */
+    border-radius: 25px;
     cursor: pointer;
     transition: background 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
     text-decoration: none;
     display: inline-block;
     font-weight: 600;
-    letter-spacing: 0.03em; /* Subtle letter spacing */
-    text-transform: uppercase; /* Uppercase text */
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
     box-shadow: 0 4px 10px rgba(0, 123, 255, 0.2);
 }
 
-.btn:hover {
+.btn {
+    padding: 0.85rem 1.8rem;
+}
+
+.btn:hover, form button:hover, .back-button:hover {
     background: #0056b3; /* Darker blue on hover */
     transform: translateY(-2px); /* Lift effect */
     box-shadow: 0 6px 15px rgba(0, 123, 255, 0.3);
@@ -377,22 +379,11 @@ form textarea:focus {
 
 form button {
     padding: 0.75rem 1.5rem;
-    background: var(--primary-color);
-    color: #fff;
-    border: none;
     border-radius: 4px;
-    cursor: pointer;
-    transition: background 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
     font-weight: 600;
     letter-spacing: 0.03em;
     text-transform: uppercase;
     box-shadow: 0 4px 10px rgba(0, 123, 255, 0.2);
-}
-
-form button:hover {
-    background: #0056b3;
-    transform: translateY(-2px);
-    box-shadow: 0 6px 15px rgba(0, 123, 255, 0.3);
 }
 
 .form-response {
@@ -460,12 +451,16 @@ body.dark h2, body.dark h3 {
     color: var(--secondary-color); /* Headings use secondary in dark mode */
 }
 
-body.dark .btn {
+body.dark .btn,
+body.dark form button,
+body.dark .back-button {
     background: var(--secondary-color);
     box-shadow: 0 4px 10px rgba(40, 167, 69, 0.2);
 }
 
-body.dark .btn:hover {
+body.dark .btn:hover,
+body.dark form button:hover,
+body.dark .back-button:hover {
     background: #218838; /* Darker secondary on hover */
     box-shadow: 0 6px 15px rgba(40, 167, 69, 0.3);
 }
@@ -870,36 +865,10 @@ body.dark .project-detail-video-container {
 }
 
 .back-button {
-    background: var(--primary-color);
-    color: #fff;
-    border: none;
     padding: 0.8rem 2rem;
     border-radius: 25px;
-    cursor: pointer;
-    transition: background 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
-    text-decoration: none;
-    display: inline-block;
-    font-weight: 600;
-    letter-spacing: 0.03em;
-    text-transform: uppercase;
-    box-shadow: 0 4px 10px rgba(0, 123, 255, 0.2);
 }
 
-.back-button:hover {
-    background: #0056b3;
-    transform: translateY(-2px);
-    box-shadow: 0 6px 15px rgba(0, 123, 255, 0.3);
-}
-
-body.dark .back-button {
-    background: var(--secondary-color);
-    box-shadow: 0 4px 10px rgba(40, 167, 69, 0.2);
-}
-
-body.dark .back-button:hover {
-    background: #218838;
-    box-shadow: 0 6px 15px rgba(40, 167, 69, 0.3);
-}
 
 /* --- PROJECT CARD BUTTON --- */
 .project-card {
@@ -1084,7 +1053,6 @@ body.dark .spinner {
     width: 100px;   /* Larger size, adjust as needed. Increased from 90px to 100px */
     height: auto;  /* Maintain aspect ratio */
     display: block;
-    /* Removed hover transition and transform */
 }
 
 /* Media query for smaller screens: Make the logo smaller on mobile */
@@ -1096,4 +1064,159 @@ body.dark .spinner {
     .contact-section-logo {
         width: 70px; /* Smaller size for mobile */
     }
+}
+/* --- Project Filter Styles - ADDED --- */
+.project-filters {
+    display: flex;
+    justify-content: center;
+    gap: 15px; /* Space between filter buttons */
+    margin-bottom: 40px; /* Space between filters and project grid */
+    flex-wrap: wrap; /* Allow buttons to wrap on smaller screens */
+}
+
+.filter-btn {
+    background: var(--background-color-medium); /* Light gray background */
+    color: var(--text-color-light);
+    border: 1px solid #ddd;
+    padding: 10px 25px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    text-transform: capitalize; /* Make the button text look clean */
+}
+
+.filter-btn:hover {
+    background: var(--primary-color);
+    color: #fff;
+    border-color: var(--primary-color);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(0, 123, 255, 0.2);
+}
+
+.filter-btn.active {
+    background: var(--primary-color);
+    color: #fff;
+    border-color: var(--primary-color);
+    box-shadow: 0 4px 10px rgba(0, 123, 255, 0.3);
+    pointer-events: none; /* Prevent clicking the active button again */
+}
+
+/* Hide projects initially - JavaScript will show them */
+/* MODIFIED: Changed from :not(.visible) to .hide and use .visible for display control */
+.project-card:not(.visible) {
+    display: none; /* Initial hide */
+}
+
+/* Smooth transition for showing/hiding cards (optional, but nice) - MODIFIED */
+.projects-grid {
+    transition: all 0.4s ease-out; /* Smooth transition for grid layout changes */
+}
+
+.project-card {
+    /* Keep existing card styles */
+    opacity: 1; /* Ensure opacity is default */
+    transform: translateY(0); /* Ensure transform is default */
+    transition: opacity 0.4s ease, transform 0.4s ease, display 0.4s; /* Added display transition (CSS only) */
+}
+
+/* When a card is to be hidden - ADDED */
+.project-card.hide {
+    opacity: 0;
+    transform: translateY(20px); /* Slide down slightly as it fades */
+    /* This will be handled by JS after a timeout to allow the animation to complete */
+}
+
+
+/* Dark mode for filters - ADDED (Place this within your existing `body.dark` block) */
+body.dark .project-filters {
+    border-color: #444; /* Darker border for filter buttons */
+}
+
+body.dark .filter-btn {
+    background: var(--dark-section-bg);
+    color: var(--dark-text-muted);
+    border-color: #444;
+}
+
+body.dark .filter-btn:hover {
+    background: var(--secondary-color);
+    color: var(--dark-text);
+    border-color: var(--secondary-color);
+    box-shadow: 0 4px 10px rgba(40, 167, 69, 0.2);
+}
+
+body.dark .filter-btn.active {
+    background: var(--secondary-color);
+    color: var(--dark-text);
+    border-color: var(--secondary-color);
+    box-shadow: 0 4px 10px rgba(40, 167, 69, 0.3);
+}
+
+/* Add or modify these styles in your styles.css file */
+
+/* Ensure project cards have a transition for smooth effects */
+.project-card {
+    /* Existing styles for your project cards */
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out, opacity 0.3s ease-in-out;
+    /* Increased transition duration for a more noticeable effect */
+    /* Add/adjust these if they aren't already present */
+    will-change: transform, box-shadow; /* Optimize for animation */
+    position: relative; /* Needed if you add overlays or more complex effects later */
+}
+
+/* Styles for when the project card is clicked */
+.project-card.clicked {
+    transform: scale(1.08) translateY(-5px); /* Increased scale and slight lift */
+    box-shadow: 0 12px 25px rgba(0, 0, 0, 0.4); /* More prominent shadow */
+    z-index: 10; /* Ensure it pops over other elements */
+    opacity: 0.8; /* Slight fade to make it look like it's "leaving" */
+    transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94), /* Smoother, bouncier transition */
+                box-shadow 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                opacity 0.4s ease-out;
+}
+
+/* For dark mode, if you have specific shadow colors */
+body.dark .project-card.clicked {
+    box-shadow: 0 12px 25px rgba(255, 255, 255, 0.15); /* Lighter shadow for dark mode */
+}
+
+/* You might want to briefly disable hover effects on the clicked card */
+.project-card.clicked:hover {
+    transform: scale(1.08) translateY(-5px); /* Maintain the clicked state */
+    box-shadow: 0 12px 25px rgba(0, 0, 0, 0.4); /* Maintain the clicked shadow */
+    cursor: default; /* Change cursor back */
+}
+
+/* Make the button itself react slightly on click, if desired */
+.project-card-button:active {
+    transform: scale(0.98); /* Slight press effect on the button */
+    transition: transform 0.1s ease-out;
+}
+
+/* General improvements for project-card and button appearance (optional, but good practice) */
+.project-card-buttons-container {
+    display: flex;
+    justify-content: center; /* Center buttons if there's only one */
+    gap: 15px; /* Space between buttons if you add more later */
+    margin-top: auto; /* Pushes buttons to the bottom of the card */
+    padding-top: 15px; /* Add some padding above buttons */
+}
+
+.project-card-button {
+    /* Existing button styles */
+    display: inline-block; /* Ensure it respects padding/margin */
+    padding: 10px 20px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: bold;
+    text-align: center;
+    transition: background-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+/* Hover effects for the button (adjust as needed) */
+.project-card-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }

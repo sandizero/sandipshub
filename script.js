@@ -15,7 +15,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const homeTitle = document.querySelector('.home-title');
         const homeSubtitle = document.querySelector('.home-subtitle');
         const homeButtons = document.querySelector('.home-buttons');
-        const techLogos = document.querySelector('.tech-logos'); // Assuming you want to animate tech logos too
+        const techLogos = document.querySelector('.tech-logos');
 
         if (homeTitle) homeTitle.classList.add('animate-in');
         if (homeSubtitle) homeSubtitle.classList.add('animate-in');
@@ -24,7 +24,6 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     // Call the hero animation function after a small delay to ensure CSS is rendered
-    // requestAnimationFrame is good for visual updates
     requestAnimationFrame(() => {
         animateHeroSection();
     });
@@ -85,7 +84,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const formData = {
                 name: contactForm.name.value,
                 email: contactForm.email.value,
-                company: contactForm.company ? contactForm.company.value : '', // Added company field
+                company: contactForm.company ? contactForm.company.value : '',
                 message: contactForm.message.value,
             };
 
@@ -219,12 +218,9 @@ document.addEventListener('DOMContentLoaded', () => {
                     basePath = currentPathParts.slice(0, frontendIndex + 1).join('/') + '/';
                 } else {
                     // This handles cases where you might be serving from root or a different subfolder
-                    // If your structure is like `domain.com/projects/page.html`, this will go to `domain.com/index.html`
-                    // If it's `domain.com/my-portfolio/projects/page.html`, this tries to get back to `domain.com/my-portfolio/index.html`
-                    // A more robust solution might involve a global `siteRoot` variable if deep nesting is common.
                     const lastSlash = window.location.pathname.lastIndexOf('/');
                     basePath = window.location.pathname.substring(0, lastSlash + 1).includes('projects/') ?
-                                        window.location.pathname.substring(0, window.location.pathname.indexOf('/projects/') + 1) : '/';
+                                             window.location.pathname.substring(0, window.location.pathname.indexOf('/projects/') + 1) : '/';
                 }
 
                 let newUrl = window.location.origin + basePath + 'index.html';
@@ -302,50 +298,142 @@ document.addEventListener('DOMContentLoaded', () => {
         {
             title: "Amazon PPC Performance Dashboard",
             description: "Developed an interactive Power BI dashboard for Amazon PPC campaign optimization, leading to a 20% increase in Ad ROAS.",
+            category: "analytics",
             detailPage: "projects/amazon-ppc-dashboard.html",
+            // githubRepo: "" // Removed githubRepo property
         },
         {
             title: "Customer Churn Prediction",
             description: "Developed a machine learning model to predict customer churn, allowing for proactive retention strategies.",
+            category: "analytics",
             detailPage: "projects/customer-churn-prediction.html",
-            githubRepo: "https://github.com/sandizero/customer-churn-prediction"
+            // githubRepo: "https://github.com/sandizero/customer-churn-prediction" // Removed githubRepo property
         },
         {
             title: "Sales Performance Dashboard",
             description: "Created an interactive Power BI dashboard to visualize sales trends, identify top-performing products, and track KPIs.",
+            category: "analytics",
             detailPage: "projects/sales-dashboard.html",
-            githubRepo: "https://github.com/sandizero/sales-dashboard-powerbi"
+            // githubRepo: "https://github.com/sandizero/sales-dashboard-powerbi" // Removed githubRepo property
         },
         {
             title: "Automated Invoice Processing",
             description: "Implemented an n8n workflow to automatically extract data from incoming email invoices, process the information, and update a financial database. Reduced manual data entry by 90%.",
+            category: "automation",
             detailPage: "projects/invoice-automation.html",
+            // githubRepo: "" // Removed githubRepo property
         },
+        {
+            title: "Financial Dashboard",
+            description: "Developed an interactive dashboard for financial data analysis using Tableau and Python.",
+            category: "analytics",
+            detailPage: "projects/financial-dashboard.html",
+            // githubRepo: "" // Removed githubRepo property
+        },
+        {
+            title: "Automated Email Responder",
+            description: "Created a Python script to automate responses to common customer service inquiries.",
+            category: "automation",
+            detailPage: "projects/email-responder.html",
+            // githubRepo: "" // Removed githubRepo property
+        },
+        {
+            title: "Sales Performance Tracker",
+            description: "A web-based tool for tracking and visualizing real-time sales performance metrics.",
+            category: "analytics",
+            detailPage: "projects/sales-tracker.html",
+            // githubRepo: "" // Removed githubRepo property
+        },
+        {
+            title: "Data Entry Bot",
+            description: "RPA bot built with UiPath to automate repetitive data entry tasks in legacy systems.",
+            category: "automation",
+            detailPage: "projects/data-entry-bot.html",
+            // githubRepo: "" // Removed githubRepo property
+        }
     ];
 
     const projectsGrid = document.querySelector('.projects-grid');
+    const filterButtons = document.querySelectorAll('.filter-btn');
 
     function createProjectCards() {
         if (projectsGrid && typeof myProjects !== 'undefined' && myProjects.length > 0) {
-            projectsGrid.innerHTML = '';
+            projectsGrid.innerHTML = ''; // Clear existing cards
 
             myProjects.forEach(project => {
                 const projectCard = document.createElement('div');
-                projectCard.classList.add('project-card');
+                projectCard.classList.add('project-card', 'animate-on-scroll');
+                projectCard.setAttribute('data-category', project.category);
+
+                let buttonsHtml = '';
+                if (project.detailPage) {
+                    buttonsHtml += `<a href="${project.detailPage}" class="project-card-button btn">View Project</a>`;
+                }
+                // GitHub repo link generation block REMOVED
+                // if (project.githubRepo) {
+                //     buttonsHtml += `<a href="${project.githubRepo}" target="_blank" class="github-repo-link">GitHub Repo</a>`;
+                // }
 
                 projectCard.innerHTML = `
                     <h3>${project.title}</h3>
                     <p>${project.description}</p>
-                    ${project.detailPage ? `<a href="${project.detailPage}" class="project-card-button btn">View Project</a>` : ''}
+                    ${buttonsHtml ? `<div class="project-card-buttons-container">${buttonsHtml}</div>` : ''}
                 `;
                 projectsGrid.appendChild(projectCard);
             });
         }
     }
 
-    // Only create project cards if on the index.html page
+    // --- Project Filtering Logic ---
+    const filterProjects = (category) => {
+        const projectCardsInDom = document.querySelectorAll('.projects-grid .project-card');
+        projectCardsInDom.forEach(card => {
+            // Apply a fade-out effect first
+            card.classList.remove('fade-in-up'); // Remove fade-in-up if it was added by scroll animation
+            card.classList.add('hide'); // Add hide class to trigger fade out
+
+            // Use setTimeout to ensure the fade-out transition plays before hiding completely
+            setTimeout(() => {
+                if (category === 'all' || card.dataset.category === category) {
+                    card.style.display = 'flex'; // Use 'flex' as per your CSS for project-card
+                    requestAnimationFrame(() => { // Use rAF for re-adding class after display changes
+                        card.classList.remove('hide');
+                        card.classList.add('fade-in-up'); // Re-add animation for fade-in
+                    });
+                } else {
+                    card.style.display = 'none';
+                }
+            }, 300); // This delay should match or slightly exceed your CSS transition duration for opacity
+        });
+    };
+
+
+    // Only create project cards if on the index.html page and set up filters
     if (location.pathname.includes('index.html') || location.pathname === '/') {
-        createProjectCards();
+        createProjectCards(); // Call this first to populate the grid
+        const initialProjectCards = document.querySelectorAll('.projects-grid .project-card');
+
+        // Apply initial visibility for all projects
+        initialProjectCards.forEach(card => {
+            card.style.display = 'flex';
+            card.classList.add('fade-in-up'); // Ensure initial fade-in animation
+        });
+
+        // Set up event listeners for filter buttons
+        filterButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const filter = button.dataset.filter;
+
+                // Remove active class from all buttons
+                filterButtons.forEach(btn => btn.classList.remove('active'));
+                // Add active class to the clicked button
+                button.classList.add('active');
+
+                filterProjects(filter);
+            });
+        });
+        // Ensure "All" button is active on initial load
+        document.querySelector('.filter-btn[data-filter="all"]')?.classList.add('active');
     }
 
 
@@ -417,7 +505,6 @@ document.addEventListener('DOMContentLoaded', () => {
         myServices.forEach(service => {
             const serviceCard = document.createElement('div');
             serviceCard.classList.add('service-card');
-            // Service cards will NOT be hyperlinked.
 
             serviceCard.innerHTML = `
                 <h4>${service.title}</h4>
@@ -506,12 +593,8 @@ document.addEventListener('DOMContentLoaded', () => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 entry.target.classList.add('fade-in-up');
-                // Optional: Stagger animation for children within the animated section
+                // Stagger animation for children within the animated section
                 Array.from(entry.target.children).forEach((child, index) => {
-                    // Make sure child elements have a display style that allows transition-delay,
-                    // or apply these delays to more specific elements if needed.
-                    // For example, if you want each service card to stagger,
-                    // you'd add this inside the `createServiceCards` loop.
                     child.style.setProperty('--animation-delay', `${index * 0.1}s`);
                 });
                 observer.unobserve(entry.target); // Stop observing once animated
@@ -522,5 +605,43 @@ document.addEventListener('DOMContentLoaded', () => {
     animatedElements.forEach(element => {
         observer.observe(element);
     });
+
+    // --- Project Card Click Effect and Navigation ---
+    // This part is now within the `DOMContentLoaded` listener, and it queries
+    // `.project-card` AFTER `createProjectCards()` has run, ensuring event listeners are attached.
+    // This structure is correct for dynamically created elements.
+    const setupProjectCardClickEffect = () => {
+        const projectCardsForClickEffect = document.querySelectorAll('.project-card');
+
+        projectCardsForClickEffect.forEach(card => {
+            // Find the View Project button within THIS specific card
+            const viewProjectButton = card.querySelector('.project-card-button');
+
+            if (viewProjectButton) {
+                viewProjectButton.addEventListener('click', function(event) {
+                    event.preventDefault(); // Prevent immediate navigation
+
+                    const targetUrl = this.href;
+
+                    // 1. Add 'clicked' class to the parent card
+                    card.classList.add('clicked');
+
+                    // 2. Wait for the animation to complete then navigate
+                    setTimeout(() => {
+                        window.location.href = targetUrl;
+                    }, 180); // A little longer than the CSS transition to ensure it plays fully
+                });
+            }
+        });
+    };
+
+    // Call this after project cards are created (only on index.html)
+    if (location.pathname.includes('index.html') || location.pathname === '/') {
+        // Need to call this *after* `createProjectCards()` has run.
+        // Since `createProjectCards()` is called directly, we can call this after its call.
+        // Or, more robustly, call it after the initial filter (which implicitly shows all cards).
+        // For current structure, calling it after `createProjectCards()` in the DOMContentLoaded block is fine.
+        setupProjectCardClickEffect();
+    }
 
 }); // End of DOMContentLoaded
